@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>?????? ?????? ????</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+      background: #000;
+    }
+
+    /* ???? ????? ???? */
+    .lang-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 20;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50px;
+      color: white;
+      backdrop-filter: blur(10px);
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .lang-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* ????? ????? ???? */
+    .page-title {
+      position: fixed;
+      top: 25px;
+      right: 25px;
+      z-index: 20;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+      transition: 0.3s;
+    }
+
+    .section {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 60px; /* ????? ??? ?????? */
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    /* ??? ??? ??? ???????? ???? ??? */
+    .section.first {
+      margin-top: 120px;
+    }
+
+    .section img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    .glass-button {
+      position: relative;
+      z-index: 2;
+      display: inline-block;
+      padding: 15px 30px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50px;
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .glass-button:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-3px);
+    }
+
+    .button-container {
+      position: absolute;
+      bottom: 50px;
+      text-align: center;
+      width: 100%;
+      z-index: 3;
+    }
+
+    /* ????? ??? ?????? */
+    body::before {
+      content: "";
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1E90FF, #87CEEB);
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <button class="lang-toggle" onclick="toggleLanguage()">EN</button>
+  <div class="page-title" id="pageTitle">?????? ?????? ????</div>
+
+  <div class="section first">
+    <img src="a.jpeg" alt="????? A">
+    <div class="button-container">
+      <a href="https://example.com/a" target="_blank" class="glass-button" data-fa="?????? ????? A" data-en="About Image A">?????? ????? A</a>
+    </div>
+  </div>
+
+  <div class="section">
+    <img src="b.jpeg" alt="????? B">
+    <div class="button-container">
+      <a href="https://example.com/b" target="_blank" class="glass-button" data-fa="?????? ????? B" data-en="About Image B">?????? ????? B</a>
+    </div>
+  </div>
+
+  <div class="section">
+    <img src="c.jpeg" alt="????? C">
+    <div class="button-container">
+      <a href="https://example.com/c" target="_blank" class="glass-button" data-fa="?????? ????? C" data-en="About Image C">?????? ????? C</a>
+    </div>
+  </div>
+
+  <div class="section">
+    <img src="d.jpeg" alt="????? D">
+    <div class="button-container">
+      <a href="https://example.com/d" target="_blank" class="glass-button" data-fa="?????? ????? D" data-en="About Image D">?????? ????? D</a>
+    </div>
+  </div>
+
+  <div class="section">
+    <img src="e.jpeg" alt="????? E">
+    <div class="button-container">
+      <a href="https://example.com/e" target="_blank" class="glass-button" data-fa="?????? ????? E" data-en="About Image E">?????? ????? E</a>
+    </div>
+  </div>
+
+  <div class="section">
+    <img src="f.jpeg" alt="????? F">
+    <div class="button-container">
+      <a href="https://example.com/f" target="_blank" class="glass-button" data-fa="?????? ????? F" data-en="About Image F">?????? ????? F</a>
+    </div>
+  </div>
+
+  <script>
+    let isEnglish = false;
+
+    function toggleLanguage() {
+      const buttons = document.querySelectorAll('.glass-button');
+      const langBtn = document.querySelector('.lang-toggle');
+      const title = document.getElementById('pageTitle');
+      isEnglish = !isEnglish;
+
+      buttons.forEach(btn => {
+        btn.textContent = isEnglish ? btn.dataset.en : btn.dataset.fa;
+      });
+
+      langBtn.textContent = isEnglish ? 'FA' : 'EN';
+      document.documentElement.lang = isEnglish ? 'en' : 'fa';
+      document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
+      title.textContent = isEnglish ? "Kasra's Diary" : "?????? ?????? ????";
+    }
+  </script>
+</body>
+</html>
