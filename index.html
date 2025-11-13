@@ -5,14 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kasra's Diary</title>
   <style>
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow-x: hidden;
       background: #000;
     }
+
+    /* صفحه قفل */
+    #lockScreen {
+      position: fixed;
+      inset: 0;
+      background: #1E90FF;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      color: white;
+    }
+
+    #lockScreen input {
+      padding: 12px 20px;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: none;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    #lockScreen button {
+      padding: 12px 25px;
+      font-size: 1rem;
+      margin-top: 15px;
+      border-radius: 50px;
+      border: none;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #lockScreen button:hover {
+      background: rgba(255,255,255,0.35);
+    }
+
+    /* محتوای اصلی سایت */
+    #mainContent { display: none; }
 
     .lang-toggle {
       position: fixed;
@@ -30,9 +70,7 @@
       transition: 0.3s;
     }
 
-    .lang-toggle:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
+    .lang-toggle:hover { background: rgba(255, 255, 255, 0.3); }
 
     .page-title {
       position: fixed;
@@ -43,7 +81,6 @@
       font-size: 1.5rem;
       font-weight: bold;
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-      transition: 0.3s;
     }
 
     .section {
@@ -58,9 +95,7 @@
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
     }
 
-    .section.first {
-      margin-top: 120px;
-    }
+    .section.first { margin-top: 120px; }
 
     .section img {
       position: absolute;
@@ -116,47 +151,58 @@
   </style>
 </head>
 <body>
-  <button class="lang-toggle" onclick="toggleLanguage()">EN</button>
-  <div class="page-title" id="pageTitle">دفترچه ی خاطرات کسرا</div>
 
-  <div class="section first">
-    <img src="https://raw.githubusercontent.com/ramtinhossinbiki-afk/kasras-diary/main/a.jpeg" alt="عکس A">
-    <div class="button-container">
-      <a href="#" class="glass-button" data-fa="کسرا ، تو خوشگل منی." data-en="Kasra, you are beautiful to me.">کسرا ، تو خوشگل منی.</a>
-    </div>
+  <!-- صفحه قفل -->
+  <div id="lockScreen">
+    <h1>رمز را وارد کنید</h1>
+    <input type="password" id="passwordInput" placeholder="رمز عبور">
+    <button onclick="checkPassword()">ورود</button>
   </div>
 
-  <div class="section">
-    <img src="https://raw.githubusercontent.com/ramtinhossinbiki-afk/kasras-diary/main/b.jpeg" alt="عکس B">
-    <div class="button-container">
-      <a href="#" class="glass-button" data-fa="کسرا ، تو جیگر منی." data-en="Kasra, you are my liver.">کسرا ، تو جیگر منی.</a>
-    </div>
-  </div>
+  <!-- محتوای اصلی -->
+  <div id="mainContent">
+    <button class="lang-toggle" onclick="toggleLanguage()">EN</button>
+    <div class="page-title" id="pageTitle">دفترچه ی خاطرات کسرا</div>
 
-  <div class="section">
-    <img src="https://raw.githubusercontent.com/ramtinhossinbiki-afk/kasras-diary/main/c.jpeg" alt="عکس C">
-    <div class="button-container">
-      <a href="#" class="glass-button" data-fa="کسرا ، تو عسل منی." data-en="Kasra, you are my honey.">کسرا ، تو عسل منی.</a>
+    <div class="section first">
+      <img src="https://raw.githubusercontent.com/ramtinhossinbiki-afk/kasras-diary/main/a.jpeg" alt="عکس A">
+      <div class="button-container">
+        <a href="#" class="glass-button" data-fa="کسرا ، تو خوشگل منی." data-en="Kasra, you are beautiful to me.">کسرا ، تو خوشگل منی.</a>
+      </div>
     </div>
-  </div>
 
-  <div class="section">
-    <img src="https://raw.githubusercontent.com/ramtinhossinbiki-afk/kasras-diary/main/d.jpeg" alt="عکس D">
-    <div class="button-container">
-      <a href="#" class="glass-button" data-fa="کسرا ، تو ناناز منی." data-en="Kasra, you are my sweetheart.">کسرا ، تو ناناز منی.</a>
+    <div class="section">
+      <img src="https://raw.githubusercontent.com/ramtinhossinbiki-afk/kasras-diary/main/b.jpeg" alt="عکس B">
+      <div class="button-container">
+        <a href="#" class="glass-button" data-fa="کسرا ، تو جیگر منی." data-en="Kasra, you are my liver.">کسرا ، تو جیگر منی.</a>
+      </div>
     </div>
-  </div>
 
-  <div class="section">
-    <img src="https://raw.githubusercontent.com/ramtinhossinbiki-afk/kasras-diary/main/e.jpeg" alt="عکس E">
-    <div class="button-container">
-      <a href="#" class="glass-button" data-fa="کسرا ، تو گوگولی منی." data-en="Kasra, you are my cutie.">کسرا ، تو گوگولی منی.</a>
+    <div class="section">
+      <img src="https://raw.githubusercontent.com/ramtinhossinbiki-afk/kasras-diary/main/c.jpeg" alt="عکس C">
+      <div class="button-container">
+        <a href="#" class="glass-button" data-fa="کسرا ، تو عسل منی." data-en="Kasra, you are my honey.">کسرا ، تو عسل منی.</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <img src="https://raw.githubusercontent.com/ramtinhossinbiki-afk/kasras-diary/main/d.jpeg" alt="عکس D">
+      <div class="button-container">
+        <a href="#" class="glass-button" data-fa="کسرا ، تو ناناز منی." data-en="Kasra, you are my sweetheart.">کسرا ، تو ناناز منی.</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <img src="https://raw.githubusercontent.com/ramtinhossinbiki-afk/kasras-diary/main/e.jpeg" alt="عکس E">
+      <div class="button-container">
+        <a href="#" class="glass-button" data-fa="کسرا ، تو گوگولی منی." data-en="Kasra, you are my cutie.">کسرا ، تو گوگولی منی.</a>
+      </div>
     </div>
   </div>
 
   <script>
+    // زبان
     let isEnglish = false;
-
     function toggleLanguage() {
       const buttons = document.querySelectorAll('.glass-button');
       const langBtn = document.querySelector('.lang-toggle');
@@ -171,6 +217,17 @@
       document.documentElement.lang = isEnglish ? 'en' : 'fa';
       document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
       title.textContent = isEnglish ? "Kasra's Diary" : "دفترچه ی خاطرات کسرا";
+    }
+
+    // بررسی رمز
+    function checkPassword() {
+      const input = document.getElementById('passwordInput').value;
+      if (input === '25800852') {
+        document.getElementById('lockScreen').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+      } else {
+        alert('رمز اشتباه است!');
+      }
     }
   </script>
 </body>
